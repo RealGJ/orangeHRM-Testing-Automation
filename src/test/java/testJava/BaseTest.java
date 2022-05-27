@@ -15,11 +15,15 @@ import org.testng.annotations.Parameters;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.LoginPage;
 import utilities.ConfigUtils;
+import utilities.ExcelUtil;
+import utilities.ScreenshotUtil;
 
 public class BaseTest {
 
 	protected WebDriver driver;
 	protected LoginPage loginpage;
+	protected ExcelUtil excelutil;
+	protected ScreenshotUtil screenshottil;
 	protected ConfigUtils readProp = new ConfigUtils();
 
 	@BeforeClass
@@ -34,6 +38,8 @@ public class BaseTest {
 	@BeforeMethod
 	public void objectInit() {
 		loginpage = new LoginPage(driver);
+		excelutil = new ExcelUtil();
+		screenshottil = new ScreenshotUtil();
 	}
 	
 	@AfterClass
