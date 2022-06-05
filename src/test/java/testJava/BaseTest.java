@@ -1,18 +1,14 @@
 package testJava;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.DashboardPage;
 import pages.LoginPage;
 import utilities.ConfigUtils;
 import utilities.ExcelUtil;
@@ -23,6 +19,7 @@ public class BaseTest {
 	protected WebDriver driver;
 	protected LoginPage loginpage;
 	protected ExcelUtil excelutil;
+	protected DashboardPage dashboardPage;
 	protected ScreenshotUtil screenshottil;
 	protected ConfigUtils readProp = new ConfigUtils();
 
@@ -33,11 +30,13 @@ public class BaseTest {
 
 		driver.manage().window().maximize();
 		driver.get(readProp.getProp("url"));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 
 	@BeforeMethod
 	public void objectInit() {
 		loginpage = new LoginPage(driver);
+		dashboardPage = new DashboardPage(driver);
 		excelutil = new ExcelUtil();
 		screenshottil = new ScreenshotUtil();
 	}
